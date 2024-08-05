@@ -62,11 +62,19 @@ manual() {
 update() {
 
     # check if executed with sudo permissions
-    if [ "$EUID" -ne 0 ] then 
+    if [ "$EUID" -ne 0 ]; then
         die "Please run update with root permissions"
     fi
 
+    if [ "$(which wget)" == "" ]; then
+        die "wget not installed. Please install wget to proceed!"
+    fi
+
+
     # pull newest install-jot.sh script and make executable
+    wget https://raw.githubusercontent.com/vozodo/jot/main/install-jot.sh -P $script_dir
+
+
     chmod +x $script_dir/install-jot.sh
 
     # run update script
