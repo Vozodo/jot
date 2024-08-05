@@ -2,7 +2,19 @@
 
 > write (something) quickly.
 
- 
+# Installation
+
+## cURL
+```console
+curl -s https://raw.githubusercontent.com/vozodo/jot/main/install-jot.sh | bash
+```
+
+## wget 
+```console
+wget -qO - https://raw.githubusercontent.com/vozodo/jot/main/install-jot.sh | bash
+```
+
+
 
 # Credits
 
