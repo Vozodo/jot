@@ -24,7 +24,7 @@ main() {
 
 write() {
 
-    date=$(date)
+    date=$(date '+%Y-%m-%d %H:%m:%S')
     jot=$1
 
     if [ -z "$jot" ]
