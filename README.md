@@ -1,6 +1,7 @@
 # jot - Log your activites on your Linux Server
+![banner](docs/jot-banner.png)
 
-> write (something) quickly.
+
 
 # Installation
 
