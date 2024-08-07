@@ -70,9 +70,13 @@ update() {
         die "wget not installed. Please install wget to proceed!"
     fi
 
+    # rm old jot installer (if exists)
+    if [ -e "$script_dir/install-jot.sh" ]; then
+        rm $script_dir/install-jot.sh
+    fi
 
     # pull newest install-jot.sh script and make executable
-    wget https://raw.githubusercontent.com/vozodo/jot/main/install-jot.sh -P $script_dir
+    wget -q https://raw.githubusercontent.com/vozodo/jot/main/install-jot.sh -P $script_dir
 
 
     chmod +x $script_dir/install-jot.sh
