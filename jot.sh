@@ -118,7 +118,8 @@ Usage: $(
         basename "${BASH_SOURCE[0]}"
     ) [-h] [-v] [-u] [-i] [-o]
 
-Script description here.
+JOT helps you to track activities on your server. It asks the user at login and/or at logout what has been done on the server. 
+This makes it easier to track what has changed on the system.
 
 Available options:
 
