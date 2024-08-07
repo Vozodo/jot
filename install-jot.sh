@@ -14,6 +14,25 @@ main() {
 
     pull_newest_version
 
+    # check if jot is already installed
+    if [ -e "$INSTALL_PATH/jot" ]; then
+        ask_reset
+
+        if [ $reset -eq 1 ]; then
+            # user wants to reset configuration
+            
+            # individual installation
+            reset_file ~/.bashrc
+            reset_file ~/.bash_logout
+
+            # global installation
+            reset_file /etc/bash.bashrc
+            reset_file /etc/bash.bash_logout
+
+            echo "Jot configuration successfully reset"
+        fi
+    fi
+
 
     ask_login
     ask_logoff
@@ -31,7 +50,7 @@ main() {
         # if requested put into bashrc to run afer login
         if [ $login -eq 1 ]; then
 
-            login_setting=$(file_contains ~/.bashrc "# jot")
+            login_setting=$(file_contains ~/.bashrc "# jot program")
             echo $setting;
 
             # check if setting is already present
@@ -51,7 +70,7 @@ main() {
             # create bash_logout file if not exist
             touch ~/.bash_logout
 
-            logoff_setting=$(file_contains ~/.bash_logout "# jot")
+            logoff_setting=$(file_contains ~/.bash_logout "# jot program")
 
             # check if setting is already present
             if [ $logoff_setting -eq 0 ]; then
@@ -76,7 +95,7 @@ main() {
             # create file if not exist
             touch /etc/bash.bashrc
 
-            login_setting=$(file_contains /etc/bash.bashrc "# jot")
+            login_setting=$(file_contains /etc/bash.bashrc "# jot program")
 
             # check if setting is already present
             if [ $login_setting -eq 0 ]; then
@@ -95,7 +114,7 @@ main() {
             # create bash_logout file if not exist
             touch /etc/bash.bash_logout
 
-            logoff_setting=$(file_contains /etc/bash.bash_logout "# jot")
+            logoff_setting=$(file_contains /etc/bash.bash_logout "# jot program")
 
             # check if setting is already present
             if [ $logoff_setting -eq 0 ]; then
@@ -107,6 +126,7 @@ main() {
 
         fi
 
+        echo "Done! write jot --help for mor information"
         exit 0;
 
     fi
@@ -173,6 +193,17 @@ ask_individual_install () {
     esac
 }
 
+ask_reset () {
+    reset=0;
+    read -p "Reset JOT configuration (jot history remains) [Y/N] " reset
+    case $reset in
+        [Yy]* ) reset=1;;
+        [Nn]* ) reset=0;;
+        * ) echo "Please answer yes or no. " && exit;;
+    esac
+}
+
+
 file_contains() {
     local file=$1
     local keyword=$2
@@ -184,6 +215,12 @@ file_contains() {
     echo 0;
     return 0;
 
+}
+
+reset_file() {
+    local file=$1
+
+    sed -i '/# jot program/d' $file
 }
 
 main "$@"
